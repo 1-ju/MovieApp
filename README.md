@@ -1,2 +1,0 @@
-# MovieApp
-Movie Information Application
