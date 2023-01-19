@@ -1,0 +1,35 @@
+{% extends "home/base.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap');
+
+    h1{
+        font-family: 'Nerko One', cursive;
+    }
+</style>
+    
+
+{% if user.is_authenticated %}
+<h1>HELLO, {{user}}!</h1>
+<div class="container">
+
+    <div class="text=container">
+        <p>Username : {{user}}</p>
+        <p>Email : {{user.email}}</p>
+    </div>
+    <a class="text" href="/profile/edit">edit profile</a>
+</div>
+
+
+{%else%}
+<p>Log in to view your details</p>
+
+{% endif %}
+
+{% endblock %}

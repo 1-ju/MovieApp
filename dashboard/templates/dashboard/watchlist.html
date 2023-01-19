@@ -1,0 +1,60 @@
+
+{% extends "home/base.html" %}
+
+{% block title %}
+    Watched list
+{% endblock %}
+
+{% block main %}
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
+
+    <h1>Watchlist</h1>
+    <p>Add movies to your watchlist!</p>
+    <form action="/search/" method="get" class="row g-3">
+        
+
+        <div class="autoComplete_wrapper">
+            <input id="autoComplete" type="search" name="q" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
+
+        
+        </div>
+        <script>
+            var q = document.getElementById("autoComplete")
+            q.onchange = () => {
+                fetch(`/search?q=${q.value}&data=json`)
+                .then(response => response.json())
+                .then(data => {
+                    possibles=[]
+                    for(m in data.results){
+                        possibles.push(m.name) 
+                    }
+                    const autoCompleteJS = new autoComplete({
+                        placeHolder: "Search for Movies...",
+                        data: {
+                            src: possibles,
+                            cache: true,
+                        },
+                        resultItem: {
+                            highlight: true
+                        },
+                        events: {
+                            input: {
+                                selection: (event) => {
+                                    const selection = event.detail.selection.value;
+                                    autoCompleteJS.input.value = selection;
+                                }
+                            }
+                        }
+                    });
+        
+                })
+
+            }
+            
+        </script>
+
+
+    </form>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+
+{% extends "home/base.html" %}
+
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block main %}
+
+<style>
+    ul{list-style-type:none;}
+    li{margin:10px;float:left;}
+</style>
+
+    <h1>OTT SERVICE</h1>
+    <p>Choose your subscribing service</p>
+    <hr>
+    <span id="ott_provider_wrapper">
+
+        <ul id="ott_providers" class = "ott_providers multi_select image">
+            
+            {% for p in provider.results %}
+            {% if p.provider_id in id %}
+            <li data-value={{p.provider_id}} class="" data-role="tooltip">
+                <input type="checkbox" name="checker" id='{{p.provider_id}}'>
+                <img width="50" height="50" src="https://image.tmdb.org/t/p/original{{ p.logo_path }}" alt="...">
+                <div>
+                    <span class="glyphicons_v2 check white"></span>
+                </div>
+                
+            </li>    
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </span>
+{% endblock %}
